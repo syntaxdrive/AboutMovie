@@ -1,0 +1,17 @@
+## Ignore local config and secrets
+config.js
+ads.js
+.env
+.env.*
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS files
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
