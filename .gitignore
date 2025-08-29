@@ -15,3 +15,6 @@ yarn-error.log
 # Editor
 .vscode/
 .idea/
+
+# local secret copy
+config.local.js
