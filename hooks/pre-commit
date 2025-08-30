@@ -1,0 +1,10 @@
+#!/bin/sh
+# Simple pre-commit hook to prevent committing known sensitive filenames.
+BLOCKED="config.js ads.js .env .env.local"
+for f in $BLOCKED; do
+  if git diff --cached --name-only | grep -q "^$f$"; then
+    echo "Commit blocked: $f is listed in the pre-commit policy. Remove it from the commit and try again."
+    exit 1
+  fi
+done
+exit 0

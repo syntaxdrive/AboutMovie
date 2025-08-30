@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Movie Search — Find summaries, trailers & cast</title>
+        <meta name="description" content="Search any movie and get summary, cast, genres, runtime, poster and trailers powered by TMDB." />
+        <meta name="robots" content="index,follow" />
+
+        <!-- Open Graph / Social -->
+        <meta property="og:site_name" content="Movie Search" />
+        <meta property="og:title" content="Movie Search — Find summaries, trailers & cast" />
+        <meta property="og:description" content="Search any movie and get summary, cast, genres, runtime, poster and trailers powered by TMDB." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/og-default.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    </head>
+    <body>
+        <header class="top">
+            <h1>Movie Search</h1>
+            <p class="subtitle">Search any movie to see summary, cast, genres, runtime, poster and trailers.</p>
+            <div class="search">
+                <input id="searchInput" placeholder="Search movies (try: inception, the matrix, titanic)" />
+                <button id="searchBtn">Search</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- top banner ad (responsive) -->
+            <div id="ad-top" class="ad-slot ad-banner">Your Ad Here — Top Banner</div>
+
+            <div class="layout">
+                <!-- Home view (shown when no search) -->
+                <section id="home" class="home">
+                    <div id="hero" class="hero">
+                        <!-- hero content populated by script.js -->
+                    </div>
+                    <div id="rows" class="rows">
+                        <!-- horizontal rows will be injected here -->
+                    </div>
+                    <div id="movieOfDay" class="movie-of-day">
+                        <!-- Movie of the Day -->
+                    </div>
+                </section>
+
+                <section id="results" class="grid" style="display:none"></section>
+
+                <!-- sidebar ad (shows on larger screens) -->
+                <aside class="sidebar">
+                    <div id="ad-sidebar" class="ad-slot ad-sidebar">Sidebar Ad</div>
+                </aside>
+            </div>
+
+            <!-- footer ad slot -->
+            <div id="ad-footer" class="ad-slot ad-footer">Footer Ad</div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="README.md">About</a>
+                </div>
+
+                <!-- Newsletter signup (simple local-capture) -->
+                <div class="newsletter">
+                    <form id="newsletterForm" class="newsletter-form" action="#" method="POST">
+                        <label for="newsletterEmail">Get updates</label>
+                        <input id="newsletterEmail" name="email" type="email" placeholder="you@example.com" required />
+                        <button id="newsletterBtn" type="submit">Subscribe</button>
+                        <div id="newsletterMsg" class="newsletter-msg" aria-live="polite"></div>
+                    </form>
+                </div>
+
+                <div class="attribution">Data & artwork via <a href="https://www.themoviedb.org/">TMDB</a></div>
+            </div>
+        </footer>
+
+        <!-- details modal -->
+        <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+            <div class="modal-content">
+                <button id="closeModal" class="close">×</button>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+
+        <!-- Optional: create a file named config.js next to these files that sets window.TMDB_API_KEY = 'your_key' -->
+        <script src="config.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

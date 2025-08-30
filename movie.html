@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movie — Loading…</title>
+    <meta name="robots" content="index,follow" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta property="og:type" content="video.movie" />
+    <meta id="og-image" property="og:image" content="/og-default.png" />
+  </head>
+  <body>
+    <main class="movie-page">
+      <div id="movieRoot">Loading…</div>
+    </main>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+      // simple boot: read ?id= and render via existing fetchMovieDetails + renderMovieDetails
+      (async function(){
+        function qs(k){const p=new URLSearchParams(location.search);return p.get(k);} 
+        const id = qs('id');
+        if (!id) { document.getElementById('movieRoot').innerText = 'No movie id provided.'; return; }
+        try {
+          // ensure config loaded
+          if (!window.TMDB_API_KEY) {
+            const s=document.createElement('script'); s.src='config.local.js'; s.async=true; document.head.appendChild(s);
+          }
+          // wait a touch for config to load
+          await new Promise(r=>setTimeout(r,200));
+          const details = await fetchMovieDetails(id);
+          // reuse existing renderer but write into root
+          const root = document.getElementById('movieRoot');
+          root.innerHTML = '';
+          const container = document.createElement('div');
+          container.className = 'movie-detail-standalone';
+          container.innerHTML = '<div id="standaloneBody"></div>';
+          root.appendChild(container);
+          const oldModalBody = document.getElementById('modalBody');
+          // temporarily point modalBody selector used by renderMovieDetails to our standalone element
+          const tmp = document.getElementById('modalBody');
+          if (tmp) tmp.id = 'modalBody-archived';
+          const stand = document.getElementById('standaloneBody');
+          stand.id = 'modalBody';
+          renderMovieDetails(details);
+          // update title and og:image
+          document.title = (details.title || details.name || 'Movie') + ' — Movie Search';
+          const og = document.getElementById('og-image'); if (og && details.poster_path) og.content = 'https://image.tmdb.org/t/p/w500' + details.poster_path;
+        } catch (e) {
+          document.getElementById('movieRoot').innerText = 'Failed to load movie.';
+        }
+      })();
+    </script>
+  </body>
+</html>

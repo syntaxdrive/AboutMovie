@@ -1,0 +1,6 @@
+# Example ads.txt
+# Replace with your authorized sellers (publisher IDs) when you know them.
+# Example line format:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# Add your authorized sellers below:

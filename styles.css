@@ -1,0 +1,137 @@
+:root{
+  --bg: #f7f7f8;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#e50914; /* Netflix-like red */
+  --shadow: 0 6px 18px rgba(16,24,40,0.06);
+  --radius:12px;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; background:var(--bg); color:#111}
+.top{background:linear-gradient(180deg, #fff 0%, #fbfbfb 100%); padding:32px; text-align:center; box-shadow:var(--shadow);}
+.top h1{margin:0; font-size:28px; color:#111}
+.subtitle{color:var(--muted); margin:8px 0 18px}
+.search{display:inline-flex; gap:8px; align-items:center}
+.search input{width:420px; max-width:80vw; padding:12px 14px; border-radius:999px; border:1px solid #e6e6e9; outline:none; box-shadow:none}
+.search button{background:var(--accent); color:white; border:none; padding:10px 18px; border-radius:999px; cursor:pointer; font-weight:600}
+.search button:disabled{opacity:.7; cursor:default}
+
+main{padding:28px; max-width:1200px; margin:0 auto}
+.message{padding:36px; text-align:center; color:var(--muted)}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px}
+.card{background:var(--card); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--shadow);}
+.poster img{width:100%; height:330px; object-fit:cover; display:block}
+.meta{padding:12px}
+.title{margin:0; font-size:16px}
+.year{font-weight:600; color:var(--muted); font-size:13px}
+.overview{color:var(--muted); margin:8px 0 12px; font-size:14px}
+.actions{display:flex; gap:8px}
+.detailsBtn{background:transparent; border:1px solid var(--accent); color:var(--accent); padding:8px 12px; border-radius:8px; cursor:pointer}
+
+/* focus states for keyboard users */
+.card:focus{outline:3px solid rgba(229,9,20,0.14); box-shadow:0 8px 20px rgba(16,24,40,0.08)}
+.detailsBtn:focus{outline:2px solid rgba(229,9,20,0.2)}
+
+/* skeleton loading */
+.skeleton{pointer-events:none}
+.skeleton .poster{background:#e9e9ee; position:relative; overflow:hidden}
+.skeleton .shimmer{position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%); animation:shimmer 1.2s infinite}
+.skeleton .meta{padding:12px}
+.skeleton .line{height:12px; background:#eee; margin:8px 0; border-radius:6px}
+.skeleton .line.short{width:60%}
+.skeleton .line.small{width:40%}
+
+@keyframes shimmer{to{transform:translateX(100%)}}
+
+.modal{position:fixed; inset:0; display:grid; place-items:center; background:rgba(10,11,13,0.45); transition:opacity .2s ease; opacity:0; pointer-events:none; overflow:auto; padding:24px}
+.modal.open{opacity:1; pointer-events:auto}
+.modal.hidden{display:none}
+.modal-content{background:var(--card); width:94%; max-width:900px; max-height:calc(100vh - 48px); overflow:auto; border-radius:12px; box-shadow:var(--shadow); position:relative}
+.modal .close{position:absolute; right:14px; top:14px; background:white; border-radius:50%; width:36px; height:36px; border:none; cursor:pointer; box-shadow:var(--shadow); z-index:3}
+.detail-grid{display:grid; grid-template-columns:300px 1fr; gap:18px; align-items:start; padding:18px}
+.detail-poster img{width:100%; border-radius:8px}
+.detail-info h2{margin:0}
+.muted{color:var(--muted); font-weight:500; font-size:14px}
+.tagline{color:var(--accent); margin:6px 0}
+.overview-full{color:#222}
+.trailer {
+  position:relative;
+  padding-top:56.25%; /* 16:9 */
+}
+.trailer iframe{position:absolute; inset:0; width:100%; height:100%; border-radius:8px; border:0}
+
+/* Estimated Acts UI */
+.estimated-acts{margin-top:12px; padding:12px; background:#fff; border-radius:8px}
+.estimated-acts h3{margin:0 0 8px; font-size:15px}
+.acts{display:flex; gap:8px; flex-wrap:wrap}
+.act-btn{background:var(--accent); color:white; border:none; padding:8px 10px; border-radius:8px; cursor:pointer; font-weight:600}
+.acts-note{color:var(--muted); margin-top:8px; font-size:13px}
+
+@media (max-width:740px){
+  .modal{place-items:start; padding:12px}
+  .modal-content{width:100%; max-width:720px; max-height:calc(100vh - 24px); border-radius:10px}
+  .detail-grid{grid-template-columns:1fr}
+  .detail-poster img{height:160px}
+  .trailer iframe{border-radius:6px}
+  .poster img{height:220px}
+  .search input{width:72vw}
+  .cards{grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px}
+  .poster img{height:240px}
+  .card .meta{padding:10px}
+}
+
+@media (max-width:420px){
+  .search input{width:60vw; padding:10px}
+  .top{padding:20px}
+  .top h1{font-size:20px}
+  .subtitle{font-size:13px}
+}
+
+/* layout for results + sidebar */
+.layout{display:flex; gap:18px; align-items:flex-start}
+.layout .grid{flex:1}
+.sidebar{width:300px}
+
+/* ad slots */
+.ad-slot{background:#fff; border:1px dashed #e2e2e6; padding:12px; border-radius:8px; text-align:center; color:var(--muted); margin-bottom:18px}
+.ad-banner{width:100%; padding:14px 8px; font-weight:600}
+.ad-sidebar{height:250px; display:flex; align-items:center; justify-content:center}
+.ad-footer{margin-top:18px; padding:18px}
+
+.inline-ad .ad-inner{height:180px; display:flex; align-items:center; justify-content:center; background:#fafafa; border-radius:8px; color:var(--muted)}
+
+@media (max-width:980px){
+  .layout{flex-direction:column}
+  .sidebar{width:100%}
+}
+
+/* Home hero and rows */
+.home{padding:18px}
+.hero{height:360px; border-radius:12px; overflow:hidden; margin-bottom:18px; position:relative}
+.hero-inner{width:100%; height:100%; background-size:cover; background-position:center; display:flex; align-items:flex-end}
+.hero-content{background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.95) 80%); padding:18px; width:100%}
+.hero-content h2{margin:0; font-size:24px}
+.hero-overview{color:#222; margin-top:8px}
+.hero-actions{margin-top:10px}
+
+.rows .row{margin-bottom:18px}
+.rows .row h3{margin:6px 0}
+.row-cards{display:flex; gap:12px; overflow:auto; padding-bottom:6px}
+.row-cards .card{min-width:160px; flex:0 0 auto}
+
+.movie-of-day{margin-top:18px}
+.moday{background:var(--card); padding:12px; border-radius:10px}
+.moday-card .card{max-width:320px}
+
+@media (max-width:740px){
+  .hero{height:220px}
+  .hero-content h2{font-size:18px}
+}
+
+/* Consent banner */
+.consent-banner{position:fixed; left:12px; right:12px; bottom:12px; background:var(--card); border-radius:12px; box-shadow:var(--shadow); padding:12px}
+.consent-inner{display:flex; align-items:center; gap:12px; justify-content:space-between}
+.consent-text{color:#111}
+.consent-actions{display:flex; gap:8px}
+.btn{padding:8px 12px; border-radius:8px; border:1px solid #ddd; background:white; cursor:pointer}
+.btn.primary{background:var(--accent); color:white; border-color:transparent}
